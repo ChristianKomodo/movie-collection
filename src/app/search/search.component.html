@@ -19,7 +19,7 @@
       <li *ngFor="let movie of movieResults">
         <div class="movie-card">
           <p>
-            {{ movie.title }} <small>{{ movie.year }}</small>
+            {{ movie.title }} <small>({{ movie.year }})</small>
           </p>
           <img
             [src]="movie.poster"
@@ -42,5 +42,8 @@
     <h3 class="plot">{{ movieDetails?.Plot }}</h3>
     <p><strong>Starring:</strong> {{ movieDetails?.Actors }}</p>
     <p><strong>Directed by:</strong> {{ movieDetails?.Director }}</p>
+    <p><strong>Released:</strong> {{ movieDetails?.Released }}</p>
+    <p *ngIf="movieDetails?.Awards !== 'N/A'"><strong>Awards:</strong> {{ movieDetails?.Awards }}</p>
+    <p><strong>IMDB Rating:</strong> {{ movieDetails?.imdbRating }} from {{ movieDetails?.imdbVotes }} votes</p>
   </div>
 </div>
