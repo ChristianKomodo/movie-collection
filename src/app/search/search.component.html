@@ -1,6 +1,7 @@
 <h3>Search for a Movie</h3>
 
-<div class="card">
+<!-- search field and results (no details) -->
+<div class="card" *ngIf="!hasDetails">
   <p>Begin typing a movie title and then select from the list</p>
   <input
     #movieSearchInput
@@ -10,12 +11,36 @@
     placeholder="Enter a movie title"
     required
   />
+
   <div class="results">
     <small *ngIf="!hasTerm">Search results will appear here.</small>
-    <ul *ngIf="hasTerm && !isSearching">
+    <p *ngIf="isSearching">Searching...</p>
+    <ul class="results-list" *ngIf="hasTerm && !isSearching">
       <li *ngFor="let movie of movieResults">
-        <p>Title: {{ movie.title }}</p>
+        <div class="movie-card">
+          <p>
+            {{ movie.title }} <small>{{ movie.year }}</small>
+          </p>
+          <img
+            [src]="movie.poster"
+            alt="{{ movie.title }} movie poster image"
+          />
+          <button (click)="searchMovieDetails(movie)">Details</button>
+        </div>
       </li>
     </ul>
+  </div>
+</div>
+
+<!-- details -->
+<div *ngIf="hasDetails" class="card movie-details">
+  <div class="column-image">
+    <img [src]="movieDetails?.Poster" alt="{{ movieDetails?.title }} movie poster image">
+  </div>
+  <div class="column-title">
+    <h2>{{ movieDetails?.Title }} <small>{{ movieDetails?.Year }}</small></h2>
+    <h3 class="plot">{{ movieDetails?.Plot }}</h3>
+    <p><strong>Starring:</strong> {{ movieDetails?.Actors }}</p>
+    <p><strong>Directed by:</strong> {{ movieDetails?.Director }}</p>
   </div>
 </div>

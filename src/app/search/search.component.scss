@@ -1,0 +1,43 @@
+ul.results-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-left: 0;
+
+  li {
+    list-style: none;
+    display: inline-block;
+    width: calc(100% / 4);
+
+    .movie-card {
+        min-height: 120px;
+        margin: 0.5rem;
+        background: #666;
+        color: #fff;
+        padding: 1rem;
+        border-radius: 1rem;
+
+        p {
+            margin-bottom: 0.25rem;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+  }
+}
+
+.movie-details {
+    padding: 1rem 0;
+    display: flex;
+
+    div[class^="column-"] {
+        margin: 0 2rem;
+    }
+
+    .plot {
+        margin: 1rem 0;
+    }
+}

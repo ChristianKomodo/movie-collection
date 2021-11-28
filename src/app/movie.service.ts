@@ -56,10 +56,14 @@ export class MovieService {
 
   searchMovie(term: string) {
     if (term == '') {
+      console.log('no movie search term!');
       return of([]);
     }
-
     return this.http.get('http://www.omdbapi.com/?s=' + term + '&apikey=' + APIKEY, { params: PARAMS.set('search', term) });
+  }
+
+  movieDetails(imdbid: string) {
+    return this.http.get('http://www.omdbapi.com/?i=' + imdbid + '&apikey=' + APIKEY, { params: PARAMS.set('search', imdbid) });
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import {
   fromEvent,
   map,
@@ -9,6 +9,7 @@ import {
 
 import { Movie } from '../models/movie.model';
 import { MovieResult } from '../models/movie-result.model';
+import { MovieDetails } from '../models/movie-details.model';
 import { MovieService } from '../movie.service';
 
 @Component({
@@ -16,16 +17,19 @@ import { MovieService } from '../movie.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements AfterViewInit {
   movieResults: MovieResult[] = [];
-  @ViewChild('movieSearchInput', { static: true })
+  movieDetails: any;
+  // movieDetails: MovieDetails | undefined; // why is this not valid?
+  @ViewChild('movieSearchInput', { static: false })
   movieSearchInput!: ElementRef;
   hasTerm = false;
+  hasDetails = false;
   isSearching = false;
 
   constructor(private movieService: MovieService) {}
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     // build the search term
     fromEvent(this.movieSearchInput.nativeElement, 'keyup')
       .pipe(
@@ -51,7 +55,7 @@ export class SearchComponent implements OnInit {
           if (data.Response == 'True') {
             data.Search.forEach((movieDataItem: any) => {
               this.movieResults.push({
-                poster: movieDataItem.Poster,
+                poster: movieDataItem.Poster !== 'N/A' ? movieDataItem.Poster : 'http://fpoimg.com/300x430?text=No%20Poster',
                 title: movieDataItem.Title,
                 type: movieDataItem.Type,
                 year: movieDataItem.Year,
@@ -64,8 +68,15 @@ export class SearchComponent implements OnInit {
       });
   }
 
-  // onAddMovie(imdbid: string) {
-  //   console.log('onAddMovie clicked');
-  //   this.movieService.addMovie(imdbid);
-  // }
+  searchMovieDetails(movie: MovieResult) {
+    if (!movie) {
+      return;
+    }
+    this.movieService.movieDetails(movie.imdbid).subscribe(res => {
+      console.log('res (movie details) is', res);
+      this.movieDetails = res;
+      this.hasDetails = true;
+    });
+  }
+
 }
