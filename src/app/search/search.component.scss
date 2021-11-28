@@ -30,11 +30,16 @@ ul.results-list {
 }
 
 .movie-details {
-    padding: 1rem 0;
+    padding: 2rem 0;
+    margin-bottom: 2rem;
     display: flex;
 
     div[class^="column-"] {
         margin: 0 2rem;
+
+        small {
+            opacity: 0.5;
+        }
     }
 
     .plot {
