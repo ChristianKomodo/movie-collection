@@ -1,4 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
-
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.card {
+    display: block;
+    margin: 1rem 0;
+    padding: 1rem 2rem;
+    border-radius: 0.5rem;
+    border: 1px solid #eee;
+    border-bottom-color: #ccc;
+    box-shadow: 1px 2px 3px #ccc;
+}
+
+input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+}

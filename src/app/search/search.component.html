@@ -1,1 +1,21 @@
-<p>search works!</p>
+<h3>Search for a Movie</h3>
+
+<div class="card">
+  <p>Begin typing a movie title and then select from the list</p>
+  <input
+    #movieSearchInput
+    type="text"
+    name="title"
+    title="Enter a movie title"
+    placeholder="Enter a movie title"
+    required
+  />
+  <div class="results">
+    <small *ngIf="!hasTerm">Search results will appear here.</small>
+    <ul *ngIf="hasTerm && !isSearching">
+      <li *ngFor="let movie of movieResults">
+        <p>Title: {{ movie.title }}</p>
+      </li>
+    </ul>
+  </div>
+</div>
