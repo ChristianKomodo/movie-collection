@@ -1,3 +1,10 @@
+.results {
+    .searching, .search-results {
+        display: block;
+        margin-top: 1rem;
+    }
+}
+
 ul.results-list {
   display: flex;
   flex-direction: row;
@@ -18,12 +25,22 @@ ul.results-list {
         padding: 1rem;
         border-radius: 1rem;
 
+        h2 {
+            margin-bottom: 2px;
+        }
+
         p {
             margin-bottom: 0.25rem;
         }
 
         img {
             width: 100%;
+        }
+
+        .button-row {
+            margin-top: 0.5rem;
+            display: flex;
+            justify-content: space-between;
         }
     }
   }

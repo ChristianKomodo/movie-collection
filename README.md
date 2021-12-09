@@ -15,6 +15,11 @@
 - MongoDB connectivity - Create Account, Log In
 - Functionality to save movies to your personal watch list
 - Ability to click "Watched" after you have seen it
+- "Like" button functionality for favorite movies
+
+### Possible Features
+
+- **Movie Chooser** - Enter a friend's user code to compare your list to theirs and see which movie you both want to see
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
 

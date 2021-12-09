@@ -26,6 +26,7 @@ export class SearchComponent implements AfterViewInit {
   hasTerm = false;
   hasDetails = false;
   isSearching = false;
+  noResults = false;
 
   constructor(private movieService: MovieService) {}
 
@@ -52,6 +53,7 @@ export class SearchComponent implements AfterViewInit {
 
         this.movieService.searchMovie(term).subscribe((data: any) => {
           this.isSearching = false;
+          this.noResults = false;
           if (data.Response == 'True') {
             data.Search.forEach((movieDataItem: any) => {
               this.movieResults.push({
@@ -63,10 +65,23 @@ export class SearchComponent implements AfterViewInit {
               });
             });
             console.log('this.movieResults is', this.movieResults);
+          } else if (data.Response == 'False') {
+            this.noResults = true;
           }
         });
       });
   }
+
+  returnToSearchResults() {
+    this.hasDetails = false;
+  }
+
+  // reset() {
+  //   this.movieSearchInput.nativeElement.value = '';
+  //   this.hasTerm = false;
+  //   this.hasDetails = false;
+  //   this.isSearching = false;
+  // }
 
   searchMovieDetails(movie: MovieResult) {
     if (!movie) {
@@ -77,6 +92,10 @@ export class SearchComponent implements AfterViewInit {
       this.movieDetails = res;
       this.hasDetails = true;
     });
+  }
+
+  addMovie(movie: MovieResult) {
+    console.log('adding to watchlist:', movie.title);
   }
 
 }

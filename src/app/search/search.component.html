@@ -1,7 +1,8 @@
-<h3>Search for a Movie</h3>
+<h2 class="title primary">Search for a Movie</h2>
+<button (click)="returnToSearchResults()">Return to Search Results</button>
 
 <!-- search field and results (no details) -->
-<div class="card" *ngIf="!hasDetails">
+<div class="card" [hidden]="hasDetails">
   <p>Begin typing a movie title and then select from the list</p>
   <input
     #movieSearchInput
@@ -13,19 +14,23 @@
   />
 
   <div class="results">
-    <small *ngIf="!hasTerm">Search results will appear here.</small>
-    <p *ngIf="isSearching">Searching...</p>
+    <small class="search-results" *ngIf="!hasTerm">Search results will appear here.</small>
+    <p class="searching" *ngIf="isSearching">Searching...</p>
+    <h2 class="searching"  *ngIf="!isSearching && noResults">No results were found.  Please try again.</h2>
     <ul class="results-list" *ngIf="hasTerm && !isSearching">
       <li *ngFor="let movie of movieResults">
         <div class="movie-card">
-          <p>
+          <h2>
             {{ movie.title }} <small>({{ movie.year }})</small>
-          </p>
+          </h2>
           <img
             [src]="movie.poster"
             alt="{{ movie.title }} movie poster image"
           />
-          <button (click)="searchMovieDetails(movie)">Details</button>
+          <div class="button-row">
+            <button (click)="searchMovieDetails(movie)">View Details</button>
+            <button (click)="addMovie(movie)">Add to Watch List</button>
+          </div>
         </div>
       </li>
     </ul>
@@ -33,7 +38,7 @@
 </div>
 
 <!-- details -->
-<div *ngIf="hasDetails" class="card movie-details">
+<div [hidden]="!hasDetails" class="card movie-details">
   <div class="column-image">
     <img [src]="movieDetails?.Poster" alt="{{ movieDetails?.title }} movie poster image">
   </div>

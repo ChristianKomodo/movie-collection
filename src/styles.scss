@@ -1,6 +1,18 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+// based on purple theme
+.primary {
+    color: #673ab7;
+}
+
+h2 {
+    &.title {
+        display: inline;
+        margin-right: 1rem;
+    }
+}
+
 .card {
     display: block;
     margin: 1rem 0;
@@ -15,4 +27,9 @@ input {
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 0.5rem;
+}
+
+// For when using [hidden] instead of *ngIf
+[hidden] {
+    display: none !important;
 }

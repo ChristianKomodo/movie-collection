@@ -1,6 +1,8 @@
 export interface Movie {
     id: string | null;
+    imdbid: string;
     title: string;
     posterUrl: string;
-    imdbid: string;
+    watched: boolean;
+    liked: boolean;
 }
