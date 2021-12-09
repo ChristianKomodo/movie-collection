@@ -21,6 +21,15 @@
 
 - **Movie Chooser** - Enter a friend's user code to compare your list to theirs and see which movie you both want to see
 
+### Inspiration and Helpful References
+- [The Open Movie Database(OMDb) for fetch movie data](https://medium.com/nerd-for-tech/the-open-movie-database-omdb-for-fetch-movie-data-bc5ff46bec8) - Medium.com article - VERY helpful
+- [OMDB API](http://www.omdbapi.com/) - Movie database based on IMDB
+- [5 helpful RxJS solutions](https://medium.com/grensesnittet/5-helpful-rxjs-solutions-d34f7c2f1cd9) - Medium.com article
+
+### Tech
+
+MEAN Stack - Mongo (and Mongoose), Express, Angular, NodeJS
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.0.3.
 
 ## Development server
