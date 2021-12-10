@@ -1,5 +1,5 @@
 <h2 class="title primary">Search for a Movie</h2>
-<button (click)="returnToSearchResults()">Return to Search Results</button>
+<button *ngIf="hasDetails" (click)="returnToSearchResults()">Return to Search Results</button>
 
 <!-- search field and results (no details) -->
 <div class="card" [hidden]="hasDetails">
@@ -26,6 +26,7 @@
           <img
             [src]="movie.poster"
             alt="{{ movie.title }} movie poster image"
+            (click)="searchMovieDetails(movie)"
           />
           <div class="button-row">
             <button (click)="searchMovieDetails(movie)">View Details</button>
