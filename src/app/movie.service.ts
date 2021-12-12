@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { Movie } from './models/movie.model';
 
@@ -27,29 +26,9 @@ export class MovieService {
 
   constructor(private http: HttpClient, private router: Router) { }
 
-  getMovies() {
-    this.http
-      .get<{message: string, movies: any}>("http://localhost:3000/api/movies")
-      .pipe(map(movieData => {
-        return movieData.movies.map((movie: { _id: string, imdbid: string, watched: boolean, liked: boolean }) => {
-          console.log({
-            id: movie._id,
-            indbid: movie.imdbid,
-            watched: movie.watched,
-            liked: movie.liked
-          });
-          return {
-            id: movie._id,
-            imdbid: movie.imdbid,
-            watched: movie.watched,
-            liked: movie.liked
-          }
-        })
-      }))
-      .subscribe((transformedMovies) => {
-        this.movies = transformedMovies;
-        this.moviesUpdated.next([...this.movies]);
-      })
+  getMovieList() {
+    return this.http
+      .get<{message: string, movies: any}>("http://localhost:3000/api/movies");
   }
 
   addMovie(imdbid: string) {
