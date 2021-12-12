@@ -29,4 +29,28 @@ app.use((req, res, next) => {
   next();
 });
 
+// Load movies
+app.get("/api/movies", (req, res, next) => {
+  console.log('get movies');
+  res.status(200).json({
+    message: 'Movies loaded'
+  })
+});
+
+// Save movie
+app.post("/api/movies", (req, res, next) => {
+  console.log('req body is', req.body);
+  const movie = new Movie({
+    imdbid: req.body.imdbid,
+    watched: true,
+    liked: true
+  });
+  console.log('post movie', movie);
+  movie.save();
+  res.status(201).json({
+    message: 'Movie added successfully',
+    addedMovie: movie
+  })
+});
+
 module.exports = app;

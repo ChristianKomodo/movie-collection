@@ -88,14 +88,14 @@ export class SearchComponent implements AfterViewInit {
       return;
     }
     this.movieService.movieDetails(movie.imdbid).subscribe(res => {
-      console.log('res (movie details) is', res);
       this.movieDetails = res;
       this.hasDetails = true;
     });
   }
 
-  addMovie(movie: MovieResult) {
-    console.log('adding to watchlist:', movie.title);
+  addMovie(imdbid: string) {
+    this.movieService.addMovie(imdbid);
+    console.log('addMovie() with', imdbid);
   }
 
 }
