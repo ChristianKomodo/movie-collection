@@ -29,7 +29,7 @@ export class MovieService {
 
   getMovies() {
     this.http
-      .get<{message: string, movies: any}>('http:localhost:3000/api/movies')
+      .get<{message: string, movies: any}>("http://localhost:3000/api/movies")
       .pipe(map(movieData => {
         return movieData.movies.map((movie: { _id: string, imdbid: string, watched: boolean, liked: boolean }) => {
           console.log({
@@ -53,10 +53,11 @@ export class MovieService {
   }
 
   addMovie(imdbid: string) {
+    const movieToAdd = {imdbid: imdbid};
     this.http
       .post<{imdbid: string}>(
         "http://localhost:3000/api/movies",
-        imdbid
+        movieToAdd
       )
       .subscribe(responseData => {
         console.log('responseData is', responseData);

@@ -32,9 +32,12 @@ app.use((req, res, next) => {
 // Load movies
 app.get("/api/movies", (req, res, next) => {
   console.log('get movies');
-  res.status(200).json({
-    message: 'Movies loaded'
-  })
+  Movie.find().then(documents => {
+    res.status(200).json({
+      message: "Movies fetched successfullly.",
+      movies: documents
+    })
+  });
 });
 
 // Save movie
