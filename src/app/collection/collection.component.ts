@@ -26,7 +26,7 @@ export class CollectionComponent implements OnInit {
         map((results) => {
           return results.movies.map((movie: Movie) => {
             return {
-              id: movie.id,
+              id: movie._id,
               imdbid: movie.imdbid,
               title: movie.title,
               posterUrl: movie.posterUrl,
