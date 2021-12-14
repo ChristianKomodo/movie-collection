@@ -23,8 +23,8 @@ export class CollectionComponent implements OnInit {
     this.movieService
       .getMovieList()
       .pipe(
-        map((movieIDs) => {
-          return movieIDs.movies.map((movie: Movie) => {
+        map((results) => {
+          return results.movies.map((movie: Movie) => {
             return {
               id: movie.id,
               imdbid: movie.imdbid,
