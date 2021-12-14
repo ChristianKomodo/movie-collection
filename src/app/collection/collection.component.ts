@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
+import { from } from 'rxjs';
+import { switchMap, pluck, map, tap, mergeMap, toArray } from 'rxjs/operators';
 
 import { Movie } from '../models/movie.model';
 import { MovieService } from '../movie.service';
@@ -19,24 +20,58 @@ export class CollectionComponent implements OnInit {
   }
 
   getCollectedMovies() {
-    this.movieService.getMovieList()
+    this.movieService
+      .getMovieList()
       .pipe(
-        map(movieIDs => {
-          return movieIDs.movies.map((movie: Movie) => {
-            return {
-              id: movie.id,
-              imdbid: movie.imdbid,
-              title: movie.title,
-              posterUrl: movie.posterUrl,
-              watched: movie.watched,
-              liked: movie.liked
-            }
+        map((response) =>
+          response.movies.map((item: { imdbid: string }) => {
+            this.movieService.movieDetails(item.imdbid);
           })
-        })
+        )
       )
-      .subscribe(movieData => {
-        console.log('movieData is', movieData);
-    });
+      .subscribe((data) => {
+        console.log('data', data);
+      });
+
+    // .pipe(
+    //   map((response) =>
+    //     response.movies.map((item: { imdbid: string }) => {
+    //       this.movieService.movieDetails(item.imdbid);
+    //     })
+    //   )
+    // )
+
+    // .pipe(
+    //   map((data) => data.movies),
+    //   map((movie) => {return this.movieService.movieDetails(movie.imdbid)})
+    // )
+
+    // map((movies) =>
+    //     movies.movies
+    //       .map((thisMovie: { imdbid: string }) => {
+    //         return this.movieService.movieDetails(thisMovie.imdbid)
+    //       })
+    //   )
+
+    // getCollectedMovies() {
+    //   this.movieService.getMovieList()
+    //     .pipe(
+    //       map(movieIDs => {
+    //         return movieIDs.movies.map((movie: Movie) => {
+    //           return {
+    //             id: movie.id,
+    //             imdbid: movie.imdbid,
+    //             title: movie.title,
+    //             posterUrl: movie.posterUrl,
+    //             watched: movie.watched,
+    //             liked: movie.liked
+    //           }
+    //         })
+    //       })
+    //     )
+    //     .subscribe(movieData => {
+    //       console.log('movieData is', movieData);
+    //   });
 
     // console.log('someMovies is', someMovies);
 

@@ -74,6 +74,7 @@ export class MovieService {
   }
 
   movieDetails(imdbid: string) {
+    console.log('movieDetails got passed', imdbid);
     return this.http.get('http://www.omdbapi.com/?i=' + imdbid + '&apikey=' + APIKEY, { params: PARAMS.set('search', imdbid) });
   }
 
