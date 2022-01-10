@@ -1,24 +1,67 @@
 .results {
-    .searching, .search-results {
-        display: block;
-        margin-top: 1rem;
+  .searching,
+  .search-results {
+    display: block;
+    margin-top: 1rem;
+  }
+}
+
+ul.results-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-left: 0;
+
+  li {
+    list-style: none;
+    display: inline-block;
+    width: calc(100% / 4);
+
+    img {
+      width: 100%;
+      cursor: pointer;
     }
+
+    .movie-card {
+      min-height: 120px;
+      margin: 0.5rem;
+      background: #666;
+      color: #fff;
+      padding: 1rem;
+      border-radius: 1rem;
+
+      h2 {
+        margin-bottom: 2px;
+      }
+
+      p {
+        margin-bottom: 0.25rem;
+      }
+
+      .button-row {
+        margin-top: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
 }
 
 .movie-details {
-    padding: 2rem 0;
-    margin-bottom: 2rem;
-    display: flex;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+  display: flex;
 
-    div[class^="column-"] {
-        margin: 0 2rem;
+  div[class^="column-"] {
+    margin: 0 2rem;
 
-        small {
-            opacity: 0.5;
-        }
+    small {
+      opacity: 0.5;
     }
+  }
 
-    .plot {
-        margin: 1rem 0;
-    }
+  .plot {
+    margin: 1rem 0;
+  }
 }
