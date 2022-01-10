@@ -29,7 +29,7 @@ export class CollectionComponent implements OnInit {
               id: movie._id,
               imdbid: movie.imdbid,
               title: movie.title,
-              posterUrl: movie.poster,
+              poster: movie.poster,
               watched: movie.watched,
               liked: movie.liked,
             };
@@ -38,6 +38,7 @@ export class CollectionComponent implements OnInit {
       )
       .subscribe((collectedMovies) => {
         console.log('collectedMovies is', collectedMovies);
+        this.movieCollection = collectedMovies;
       });
   }
 

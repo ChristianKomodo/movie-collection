@@ -1,35 +1,83 @@
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 // based on purple theme
 .primary {
-    color: #673ab7;
+  color: #673ab7;
 }
 
 h2 {
-    &.title {
-        display: inline;
-        margin-right: 1rem;
-    }
+  &.title {
+    display: inline;
+    margin-right: 1rem;
+  }
 }
 
 .card {
-    display: block;
-    margin: 1rem 0;
-    padding: 1rem 2rem;
-    border-radius: 0.5rem;
-    border: 1px solid #eee;
-    border-bottom-color: #ccc;
-    box-shadow: 1px 2px 3px #ccc;
+  display: block;
+  margin: 1rem 0;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  border: 1px solid #eee;
+  border-bottom-color: #ccc;
+  box-shadow: 1px 2px 3px #ccc;
+}
+
+ul.results-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-left: 0;
+
+  li {
+    list-style: none;
+    display: inline-block;
+    width: calc(100% / 4);
+
+    img {
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .movie-card {
+      min-height: 120px;
+      margin: 0.5rem;
+      background: #666;
+      color: #fff;
+      padding: 1rem;
+      border-radius: 1rem;
+
+      h2 {
+        margin-bottom: 2px;
+      }
+
+      p {
+        margin-bottom: 0.25rem;
+      }
+
+      .button-row {
+        margin-top: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+      }
+    }
+  }
 }
 
 input {
-    padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 0.5rem;
 }
 
 // For when using [hidden] instead of *ngIf
 [hidden] {
-    display: none !important;
+  display: none !important;
 }

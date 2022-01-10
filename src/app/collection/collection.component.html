@@ -1,5 +1,15 @@
 <h2 class="primary">My Movie Watch List</h2>
 
 <div class="card">
-    <p>No movies in your watch list.  Click "Add to Watch List" to have your personal choices appear here.</p>
+	<p *ngIf="movieCollection.length === 0">No movies in your watch list.  Click "Add to Watch List" to have your personal choices appear here.</p>
+
+	<ul *ngIf="movieCollection.length > 0" class="collection-list">
+		<li *ngFor="let movie of movieCollection">
+			<img
+			  [src]="movie.poster"
+			  alt="{{ movie.title }} movie poster image"
+			/>
+		</li>
+	  </ul>
+	
 </div>
