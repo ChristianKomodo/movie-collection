@@ -93,9 +93,8 @@ export class SearchComponent implements AfterViewInit {
     });
   }
 
-  addMovie(imdbid: string) {
-    this.movieService.addMovie(imdbid);
-    console.log('addMovie() with', imdbid);
+  addMovie(movie: MovieResult) {
+    this.movieService.addMovie(movie);
   }
 
 }

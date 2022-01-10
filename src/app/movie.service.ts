@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
 
 import { Movie } from './models/movie.model';
+import { MovieResult } from './models/movie-result.model';
 
 const APIKEY = "8e27fb4f";
 
@@ -31,21 +32,20 @@ export class MovieService {
       .get<{message: string, movies: any}>("http://localhost:3000/api/movies");
   }
 
-  addMovie(imdbid: string) {
-    const movieToAdd = {imdbid: imdbid};
-    this.http
-      .post<{imdbid: string}>(
+  addMovie(movie: MovieResult) {
+    console.log('addMovie:', movie);
+        this.http
+      .post<Movie>(
         "http://localhost:3000/api/movies",
-        movieToAdd
+        movie
       )
       .subscribe(responseData => {
         console.log('responseData is', responseData);
-        const movieID = responseData.imdbid;
-        this.movieIDs.push(movieID);
-        console.log('movieIDs is', this.movieIDs);
-        // this.moviesUpdated.next([...this.movieIDs]);  // nope, gotta add "watched" and "liked"
+        // this.movieIDs.push(responseData.addedMovie.imdbid);
+        // console.log('this.movieIDs is', this.movieIDs);
+        // this.moviesUpdated.next([...responseData.addedMovie]);
       });
-    console.log('addMovie parameter in service imdbid is', imdbid);
+    console.log('addMovie parameter in service imdbid is', movie.imdbid);
   }
 
   // addPost(title: string, content: string) {

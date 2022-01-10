@@ -29,15 +29,15 @@ export class CollectionComponent implements OnInit {
               id: movie._id,
               imdbid: movie.imdbid,
               title: movie.title,
-              posterUrl: movie.posterUrl,
+              posterUrl: movie.poster,
               watched: movie.watched,
               liked: movie.liked,
             };
           });
         })
       )
-      .subscribe((movieData) => {
-        console.log('movieData is', movieData);
+      .subscribe((collectedMovies) => {
+        console.log('collectedMovies is', collectedMovies);
       });
   }
 

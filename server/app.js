@@ -44,9 +44,13 @@ app.get("/api/movies", (req, res, next) => {
 app.post("/api/movies", (req, res, next) => {
   console.log('req body is', req.body);
   const movie = new Movie({
+    poster: req.body.poster,
+    title: req.body.title,
+    type: req.body.type,
+    year: req.body.year,
     imdbid: req.body.imdbid,
-    watched: true,
-    liked: true
+    watched: false,
+    liked: false
   });
   console.log('post movie', movie);
   movie.save();
