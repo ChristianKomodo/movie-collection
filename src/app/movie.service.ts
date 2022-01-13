@@ -6,18 +6,18 @@ import { of, Subject } from 'rxjs';
 import { Movie } from './models/movie.model';
 import { MovieResult } from './models/movie-result.model';
 
-const APIKEY = "8e27fb4f";
+const APIKEY = '8e27fb4f';
 
 const PARAMS = new HttpParams({
   fromObject: {
-    action: "opensearch",
-    format: "json",
-    origin: "*"
-  }
+    action: 'opensearch',
+    format: 'json',
+    origin: '*',
+  },
 });
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MovieService {
   private movies: Movie[] = [];
@@ -25,25 +25,22 @@ export class MovieService {
 
   private movieIDs: string[] = [];
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   getMovieList() {
-    return this.http
-      .get<{message: string, movies: any}>("http://localhost:3000/api/movies");
+    return this.http.get<{ message: string; movies: any }>(
+      'http://localhost:3000/api/movies'
+    );
   }
 
   addMovie(movie: MovieResult) {
     console.log('addMovie:', movie);
-        this.http
-      .post<Movie>(
-        "http://localhost:3000/api/movies",
-        movie
-      )
-      .subscribe(responseData => {
+    this.http
+      .post<any>('http://localhost:3000/api/movies', movie)
+      .subscribe((responseData) => {
         console.log('responseData is', responseData);
-        // this.movieIDs.push(responseData.addedMovie.imdbid);
-        // console.log('this.movieIDs is', this.movieIDs);
-        // this.moviesUpdated.next([...responseData.addedMovie]);
+        const thisMovie = responseData.addedMovie;
+        this.moviesUpdated.next([...this.movies, thisMovie]);
       });
     console.log('addMovie parameter in service imdbid is', movie.imdbid);
   }
@@ -70,12 +67,17 @@ export class MovieService {
       console.error('no movie search term!');
       return of([]);
     }
-    return this.http.get('http://www.omdbapi.com/?s=' + term + '&apikey=' + APIKEY, { params: PARAMS.set('search', term) });
+    return this.http.get(
+      'http://www.omdbapi.com/?s=' + term + '&apikey=' + APIKEY,
+      { params: PARAMS.set('search', term) }
+    );
   }
 
   movieDetails(imdbid: string) {
     console.log('movieDetails got passed', imdbid);
-    return this.http.get('http://www.omdbapi.com/?i=' + imdbid + '&apikey=' + APIKEY, { params: PARAMS.set('search', imdbid) });
+    return this.http.get(
+      'http://www.omdbapi.com/?i=' + imdbid + '&apikey=' + APIKEY,
+      { params: PARAMS.set('search', imdbid) }
+    );
   }
-
 }
