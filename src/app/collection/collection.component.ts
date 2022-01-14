@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { from } from 'rxjs';
-import { switchMap, pluck, map, tap, mergeMap, toArray } from 'rxjs/operators';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { Movie } from '../models/movie.model';
 import { MovieService } from '../movie.service';
@@ -10,8 +9,9 @@ import { MovieService } from '../movie.service';
   templateUrl: './collection.component.html',
   styleUrls: ['./collection.component.scss'],
 })
-export class CollectionComponent implements OnInit {
+export class CollectionComponent implements OnInit, OnDestroy {
   movieCollection: Movie[] = [];
+  private movieSub = new Subscription();
 
   constructor(private movieService: MovieService) {}
 
@@ -20,40 +20,15 @@ export class CollectionComponent implements OnInit {
   }
 
   getCollectedMovies() {
-    this.movieService
-      .getMovieList()
-      .pipe(
-        map((results) => {
-          return results.movies.map((movie: Movie) => {
-            return {
-              id: movie._id,
-              imdbid: movie.imdbid,
-              title: movie.title,
-              poster: movie.poster,
-              watched: movie.watched,
-              liked: movie.liked,
-            };
-          });
-        })
-      )
-      .subscribe((collectedMovies) => {
-        console.log('collectedMovies is', collectedMovies);
-        this.movieCollection = collectedMovies;
+    this.movieService.getMovieList();
+    this.movieSub = this.movieService
+      .getMovieUpdateListener()
+      .subscribe((movies: Movie[]) => {
+        this.movieCollection = movies;
       });
   }
 
-  getCollectedAndTransformedMovies() {
-    this.movieService
-      .getMovieList()
-      .pipe(
-        map((response) =>
-          response.movies.map((item: { imdbid: string }) => {
-            this.movieService.movieDetails(item.imdbid);
-          })
-        )
-      )
-      .subscribe((data) => {
-        console.log('data', data);
-      });
+  ngOnDestroy(): void {
+    this.movieSub.unsubscribe();
   }
 }

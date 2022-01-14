@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
 
 import { Movie } from './models/movie.model';
@@ -23,44 +22,31 @@ export class MovieService {
   private movies: Movie[] = [];
   private moviesUpdated = new Subject<Movie[]>();
 
-  private movieIDs: string[] = [];
-
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
   getMovieList() {
-    return this.http.get<{ message: string; movies: any }>(
-      'http://localhost:3000/api/movies'
-    );
+    this.http
+      .get<{ message: string; movies: Movie[] }>(
+        'http://localhost:3000/api/movies'
+      )
+      .subscribe((movieData) => {
+        this.movies = movieData.movies;
+        this.moviesUpdated.next([...this.movies]);
+      });
+  }
+
+  getMovieUpdateListener() {
+    return this.moviesUpdated.asObservable();
   }
 
   addMovie(movie: MovieResult) {
-    console.log('addMovie:', movie);
     this.http
       .post<any>('http://localhost:3000/api/movies', movie)
       .subscribe((responseData) => {
-        console.log('responseData is', responseData);
-        const thisMovie = responseData.addedMovie;
-        this.moviesUpdated.next([...this.movies, thisMovie]);
+        this.movies.push(responseData.addedMovie);
+        this.moviesUpdated.next([...this.movies]);
       });
-    console.log('addMovie parameter in service imdbid is', movie.imdbid);
   }
-
-  // addPost(title: string, content: string) {
-  //   const post: Post = { id: null, title: title, content: content };
-  //   this.http
-  //     .post<{ message: string; postId: string }>(
-  //       "http://localhost:3000/api/posts",
-  //       post
-  //     )
-  //     .subscribe(responseData => {
-  //       console.log('response data is', responseData);
-  //       const id = responseData.postId;
-  //       post.id = id;
-  //       this.posts.push(post);
-  //       this.postsUpdated.next([...this.posts]);
-  //       this.router.navigate(["/"]);
-  //     });
-  // }
 
   searchMovie(term: string) {
     if (term == '') {
@@ -74,7 +60,6 @@ export class MovieService {
   }
 
   movieDetails(imdbid: string) {
-    console.log('movieDetails got passed', imdbid);
     return this.http.get(
       'http://www.omdbapi.com/?i=' + imdbid + '&apikey=' + APIKEY,
       { params: PARAMS.set('search', imdbid) }

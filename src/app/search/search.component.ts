@@ -57,14 +57,16 @@ export class SearchComponent implements AfterViewInit {
           if (data.Response == 'True') {
             data.Search.forEach((movieDataItem: any) => {
               this.movieResults.push({
-                poster: movieDataItem.Poster !== 'N/A' ? movieDataItem.Poster : 'http://fpoimg.com/300x430?text=No%20Poster',
+                poster:
+                  movieDataItem.Poster !== 'N/A'
+                    ? movieDataItem.Poster
+                    : 'http://fpoimg.com/300x430?text=No%20Poster',
                 title: movieDataItem.Title,
                 type: movieDataItem.Type,
                 year: movieDataItem.Year,
-                imdbid: movieDataItem.imdbID
+                imdbid: movieDataItem.imdbID,
               });
             });
-            console.log('this.movieResults is', this.movieResults);
           } else if (data.Response == 'False') {
             this.noResults = true;
           }
@@ -87,7 +89,7 @@ export class SearchComponent implements AfterViewInit {
     if (!movie) {
       return;
     }
-    this.movieService.movieDetails(movie.imdbid).subscribe(res => {
+    this.movieService.movieDetails(movie.imdbid).subscribe((res) => {
       this.movieDetails = res;
       this.hasDetails = true;
     });
@@ -96,5 +98,4 @@ export class SearchComponent implements AfterViewInit {
   addMovie(movie: MovieResult) {
     this.movieService.addMovie(movie);
   }
-
 }

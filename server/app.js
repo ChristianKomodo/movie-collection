@@ -5,12 +5,15 @@ const Movie = require("./model/movie");
 
 const app = express();
 
-mongoose.connect("mongodb+srv://demo:9Cq3cdduBzmx8Q0G@cluster0.dvkan.mongodb.net/movies?retryWrites=true&w=majority")
+mongoose
+  .connect(
+    "mongodb+srv://demo:9Cq3cdduBzmx8Q0G@cluster0.dvkan.mongodb.net/movies?retryWrites=true&w=majority"
+  )
   .then(() => {
-    console.log('connected to database!');
+    console.log("connected to database!");
   })
   .catch(() => {
-    console.log('connection failed!');
+    console.log("connection failed!");
   });
 
 app.use(express.json());
@@ -31,18 +34,16 @@ app.use((req, res, next) => {
 
 // Load movies
 app.get("/api/movies", (req, res, next) => {
-  console.log('get movies');
-  Movie.find().then(documents => {
+  Movie.find().then((documents) => {
     res.status(200).json({
       message: "Movies fetched successfullly.",
-      movies: documents
-    })
+      movies: documents,
+    });
   });
 });
 
 // Save movie
 app.post("/api/movies", (req, res, next) => {
-  console.log('req body is', req.body);
   const movie = new Movie({
     poster: req.body.poster,
     title: req.body.title,
@@ -50,14 +51,13 @@ app.post("/api/movies", (req, res, next) => {
     year: req.body.year,
     imdbid: req.body.imdbid,
     watched: false,
-    liked: false
+    liked: false,
   });
-  console.log('post movie', movie);
   movie.save();
   res.status(201).json({
-    message: 'Movie added successfully',
-    addedMovie: movie
-  })
+    message: "Movie added successfully",
+    addedMovie: movie,
+  });
 });
 
 module.exports = app;
