@@ -1,11 +1,12 @@
 const express = require("express");
 
 const Movie = require("../model/movie");
+const checkAuth = require("../middleware/check-auth");
 
 const router = express.Router();
 
 // Load movies
-router.get("", (req, res, next) => {
+router.get("", checkAuth, (req, res, next) => {
   Movie.find().then((documents) => {
     res.status(200).json({
       message: "Movies fetched successfullly.",
@@ -15,7 +16,7 @@ router.get("", (req, res, next) => {
 });
 
 // Save movie
-router.post("", (req, res, next) => {
+router.post("", checkAuth, (req, res, next) => {
   const movie = new Movie({
     poster: req.body.poster,
     title: req.body.title,
