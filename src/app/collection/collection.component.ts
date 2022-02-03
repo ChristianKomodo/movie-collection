@@ -19,6 +19,7 @@ export class CollectionComponent implements OnInit, OnDestroy {
   constructor(private movieService: MovieService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
     });

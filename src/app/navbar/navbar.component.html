@@ -13,7 +13,7 @@
       >
     </li>
     <li>
-      <button *ngIf="userIsAuthenticated" mat-button>Log Out</button>
+      <button *ngIf="userIsAuthenticated" mat-button (click)="logOut()">Log Out</button>
     </li>
   </ul>
 </mat-toolbar>
