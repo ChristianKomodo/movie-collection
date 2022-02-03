@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 
 import { Movie } from '../models/movie.model';
 import { MovieService } from '../movie.service';
@@ -12,10 +13,15 @@ import { MovieService } from '../movie.service';
 export class CollectionComponent implements OnInit, OnDestroy {
   movieCollection: Movie[] = [];
   private movieSub = new Subscription();
+  private authListenerSubs = new Subscription();
+  userIsAuthenticated: boolean = false;
 
-  constructor(private movieService: MovieService) {}
+  constructor(private movieService: MovieService, private authService: AuthService) {}
 
   ngOnInit(): void {
+    this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
+      this.userIsAuthenticated = isAuthenticated;
+    });
     this.getCollectedMovies();
   }
 
