@@ -22,7 +22,10 @@ export class MovieService {
   private movies: Movie[] = [];
   private moviesUpdated = new Subject<Movie[]>();
 
-  constructor(private http: HttpClient) {}
+  private nodeBaseUrl: string;
+  constructor(private http: HttpClient) {
+    this.nodeBaseUrl = 'http://localhost:3000';
+  }
 
   getMovieList() {
     this.http
@@ -41,7 +44,7 @@ export class MovieService {
 
   addMovie(movie: MovieResult) {
     this.http
-      .post<any>('http://localhost:3000/api/movies', movie)
+      .post<any>(`${this.nodeBaseUrl}/api/movies`, movie)
       .subscribe((responseData) => {
         this.movies.push(responseData.addedMovie);
         this.moviesUpdated.next([...this.movies]);
@@ -53,16 +56,33 @@ export class MovieService {
       console.error('no movie search term!');
       return of([]);
     }
-    return this.http.get(
-      'http://www.omdbapi.com/?s=' + term + '&apikey=' + APIKEY,
-      { params: PARAMS.set('search', term) }
-    );
+    return this.http.get('/omdb/?s=' + term + '&apikey=' + APIKEY, {
+      params: PARAMS.set('search', term),
+    });
   }
 
   movieDetails(imdbid: string) {
     return this.http.get(
-      'http://www.omdbapi.com/?i=' + imdbid + '&apikey=' + APIKEY,
-      { params: PARAMS.set('search', imdbid) }
+      '/omdb/?i=' + imdbid + '&apikey=' + APIKEY,
+      {
+        params: PARAMS.set('search', imdbid)
+      }
     );
   }
+
+  // movieDetails(imdbid: string) {
+  //   return this.http.get(
+  //     'https://www.omdbapi.com/?i=' + imdbid + '&apikey=' + APIKEY,
+  //     {
+  //       params: PARAMS.set('search', imdbid),
+  //       headers: new HttpHeaders({
+  //         'Access-Control-Allow-Origin': '*',
+  //         'Content-Type': 'application/json',
+  //         'Access-Control-Allow-Methods': 'GET',
+  //         'Access-Control-Allow-Headers': 'X-Requested-With,content-type'
+  //       }),
+  //     }
+  //   );
+  // }
 }
+  
