@@ -35,6 +35,10 @@ input {
   border-radius: 0.5rem;
 }
 
+.shaded-bar-container {
+  background: #ccc;
+}
+
 // For when using [hidden] instead of *ngIf
 [hidden] {
   display: none !important;

@@ -1,5 +1,12 @@
-<h2 class="title primary">Search for a Movie</h2>
-<button *ngIf="hasDetails" (click)="returnToSearchResults()">Return to Search Results</button>
+<h1 class="title primary">Search for a Movie</h1>
+<p>
+  Enter a title to search, then choose <strong>View Details</strong> to see
+  movie information, or choose <strong>Add to Watch List</strong> in order to
+  add it to your personal list.
+</p>
+<button *ngIf="hasDetails" (click)="returnToSearchResults()">
+  Return to Search Results
+</button>
 
 <!-- search field and results (no details) -->
 <div class="card" [hidden]="hasDetails">
@@ -14,9 +21,13 @@
   />
 
   <div class="results">
-    <small class="search-results" *ngIf="!hasTerm">Search results will appear here.</small>
+    <small class="search-results" *ngIf="!hasTerm"
+      >Search results will appear here.</small
+    >
     <p class="searching" *ngIf="isSearching">Searching...</p>
-    <h2 class="searching"  *ngIf="!isSearching && noResults">No results were found.  Please try again.</h2>
+    <h2 class="searching" *ngIf="!isSearching && noResults">
+      No results were found. Please try again.
+    </h2>
     <ul class="results-list" *ngIf="hasTerm && !isSearching">
       <li *ngFor="let movie of movieResults">
         <div class="movie-card">
@@ -41,15 +52,25 @@
 <!-- details -->
 <div [hidden]="!hasDetails" class="card movie-details">
   <div class="column-image">
-    <img [src]="movieDetails?.Poster" alt="{{ movieDetails?.title }} movie poster image">
+    <img
+      [src]="movieDetails?.Poster"
+      alt="{{ movieDetails?.title }} movie poster image"
+    />
   </div>
   <div class="column-title">
-    <h2>{{ movieDetails?.Title }} <small>{{ movieDetails?.Year }}</small></h2>
+    <h2>
+      {{ movieDetails?.Title }} <small>{{ movieDetails?.Year }}</small>
+    </h2>
     <h3 class="plot">{{ movieDetails?.Plot }}</h3>
     <p><strong>Starring:</strong> {{ movieDetails?.Actors }}</p>
     <p><strong>Directed by:</strong> {{ movieDetails?.Director }}</p>
     <p><strong>Released:</strong> {{ movieDetails?.Released }}</p>
-    <p *ngIf="movieDetails?.Awards !== 'N/A'"><strong>Awards:</strong> {{ movieDetails?.Awards }}</p>
-    <p><strong>IMDB Rating:</strong> {{ movieDetails?.imdbRating }} from {{ movieDetails?.imdbVotes }} votes</p>
+    <p *ngIf="movieDetails?.Awards !== 'N/A'">
+      <strong>Awards:</strong> {{ movieDetails?.Awards }}
+    </p>
+    <p>
+      <strong>IMDB Rating:</strong> {{ movieDetails?.imdbRating }} from
+      {{ movieDetails?.imdbVotes }} votes
+    </p>
   </div>
 </div>
