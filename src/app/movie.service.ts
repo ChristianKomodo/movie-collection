@@ -33,6 +33,7 @@ export class MovieService {
         'http://localhost:3000/api/movies'
       )
       .subscribe((movieData) => {
+        console.log('raw movieData is', movieData);
         this.movies = movieData.movies;
         this.moviesUpdated.next([...this.movies]);
       });
@@ -62,27 +63,8 @@ export class MovieService {
   }
 
   movieDetails(imdbid: string) {
-    return this.http.get(
-      '/omdb/?i=' + imdbid + '&apikey=' + APIKEY,
-      {
-        params: PARAMS.set('search', imdbid)
-      }
-    );
+    return this.http.get('/omdb/?i=' + imdbid + '&apikey=' + APIKEY, {
+      params: PARAMS.set('search', imdbid),
+    });
   }
-
-  // movieDetails(imdbid: string) {
-  //   return this.http.get(
-  //     'https://www.omdbapi.com/?i=' + imdbid + '&apikey=' + APIKEY,
-  //     {
-  //       params: PARAMS.set('search', imdbid),
-  //       headers: new HttpHeaders({
-  //         'Access-Control-Allow-Origin': '*',
-  //         'Content-Type': 'application/json',
-  //         'Access-Control-Allow-Methods': 'GET',
-  //         'Access-Control-Allow-Headers': 'X-Requested-With,content-type'
-  //       }),
-  //     }
-  //   );
-  // }
 }
-  

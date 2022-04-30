@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;
-      console.log('userIsAuthenticated is now', this.userIsAuthenticated);
+      console.log('navbar component: userIsAuthenticated is now', this.userIsAuthenticated);
     });
   }
 
