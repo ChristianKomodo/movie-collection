@@ -9,7 +9,7 @@
 ul.collection-list {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
   overflow-x: scroll;
   width: 100%;
   padding: 0;
@@ -17,13 +17,11 @@ ul.collection-list {
 
   li {
     list-style: none;
-    display: inline-block;
-    flex: 1;
     margin: 0.5rem;
 
     img {
       max-width: 130px;
-      cursor: pointer;
+      // cursor: pointer;  <- add when we integrate drag and drop
     }
   }
 }

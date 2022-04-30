@@ -1,0 +1,40 @@
+/*
+	This file is imported into the root styles.scss file, rather than 
+	including this separately in angular.json.
+*/
+
+/*
+	Positioning Classes
+
+	Usage: First is the property, then the value (in REMs).
+	Example: class="mt-5"
+	Meaning: "Margin Top of 5rem"
+	CSS: margin-top: 5rem;
+*/
+
+// Margin Top
+.mt-1 {
+  margin-top: 1rem;
+}
+.mt-2 {
+  margin-top: 2rem;
+}
+.mt-5 {
+  margin-top: 5rem;
+}
+
+// Padding Top
+.pt-1 {
+  padding-top: 1rem;
+}
+
+// Padding Bottom
+.pb-1 {
+  padding-bottom: 1rem;
+}
+.pb-2 {
+  padding-bottom: 2rem;
+}
+.pb-3 {
+  padding-bottom: 3rem;
+}

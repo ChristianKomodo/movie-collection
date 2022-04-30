@@ -1,76 +1,82 @@
-<h1 class="title primary">Search for a Movie</h1>
-<p>
-  Enter a title to search, then choose <strong>View Details</strong> to see
-  movie information, or choose <strong>Add to Watch List</strong> in order to
-  add it to your personal list.
-</p>
-<button *ngIf="hasDetails" (click)="returnToSearchResults()">
-  Return to Search Results
-</button>
-
-<!-- search field and results (no details) -->
-<div class="card" [hidden]="hasDetails">
-  <p>Begin typing a movie title and then select from the list</p>
-  <input
-    #movieSearchInput
-    type="text"
-    name="title"
-    title="Enter a movie title"
-    placeholder="Enter a movie title"
-    required
-  />
-
-  <div class="results">
-    <small class="search-results" *ngIf="!hasTerm"
-      >Search results will appear here.</small
-    >
-    <p class="searching" *ngIf="isSearching">Searching...</p>
-    <h2 class="searching" *ngIf="!isSearching && noResults">
-      No results were found. Please try again.
-    </h2>
-    <ul class="results-list" *ngIf="hasTerm && !isSearching">
-      <li *ngFor="let movie of movieResults">
-        <div class="movie-card">
-          <h2>
-            {{ movie.title }} <small>({{ movie.year }})</small>
-          </h2>
-          <img
-            [src]="movie.poster"
-            alt="{{ movie.title }} movie poster image"
-            (click)="searchMovieDetails(movie)"
-          />
-          <div class="button-row">
-            <button (click)="searchMovieDetails(movie)">View Details</button>
-            <button (click)="addMovie(movie)">Add to Watch List</button>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<!-- details -->
-<div [hidden]="!hasDetails" class="card movie-details">
-  <div class="column-image">
-    <img
-      [src]="movieDetails?.Poster"
-      alt="{{ movieDetails?.title }} movie poster image"
-    />
-  </div>
-  <div class="column-title">
-    <h2>
-      {{ movieDetails?.Title }} <small>{{ movieDetails?.Year }}</small>
-    </h2>
-    <h3 class="plot">{{ movieDetails?.Plot }}</h3>
-    <p><strong>Starring:</strong> {{ movieDetails?.Actors }}</p>
-    <p><strong>Directed by:</strong> {{ movieDetails?.Director }}</p>
-    <p><strong>Released:</strong> {{ movieDetails?.Released }}</p>
-    <p *ngIf="movieDetails?.Awards !== 'N/A'">
-      <strong>Awards:</strong> {{ movieDetails?.Awards }}
-    </p>
+<main>
+  <div class="container">
+    <h1 class="title primary">Search for a Movie</h1>
     <p>
-      <strong>IMDB Rating:</strong> {{ movieDetails?.imdbRating }} from
-      {{ movieDetails?.imdbVotes }} votes
+      Enter a title to search, then choose <strong>View Details</strong> to see
+      movie information, or choose <strong>Add to Watch List</strong> in order
+      to add it to your personal list.
     </p>
+    <button *ngIf="hasDetails" (click)="returnToSearchResults()">
+      Return to Search Results
+    </button>
+
+    <!-- search field and results (no details) -->
+    <div class="card" [hidden]="hasDetails">
+      <p>Begin typing a movie title and then select from the list</p>
+      <input
+        #movieSearchInput
+        type="text"
+        name="title"
+        title="Enter a movie title"
+        placeholder="Enter a movie title"
+        required
+      />
+
+      <div class="results">
+        <small class="search-results" *ngIf="!hasTerm"
+          >Search results will appear here.</small
+        >
+        <p class="searching" *ngIf="isSearching">Searching...</p>
+        <h2 class="searching" *ngIf="!isSearching && noResults">
+          No results were found. Please try again.
+        </h2>
+        <ul class="results-list" *ngIf="hasTerm && !isSearching">
+          <li *ngFor="let movie of movieResults">
+            <div class="movie-card">
+              <h2>
+                {{ movie.title }} <small>({{ movie.year }})</small>
+              </h2>
+              <img
+                [src]="movie.poster"
+                alt="{{ movie.title }} movie poster image"
+                (click)="searchMovieDetails(movie)"
+              />
+              <div class="button-row">
+                <button (click)="searchMovieDetails(movie)">
+                  View Details
+                </button>
+                <button (click)="addMovie(movie)">Add to Watch List</button>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- details -->
+    <div [hidden]="!hasDetails" class="card movie-details">
+      <div class="column-image">
+        <img
+          [src]="movieDetails?.Poster"
+          alt="{{ movieDetails?.title }} movie poster image"
+        />
+      </div>
+      <div class="column-title">
+        <h2>
+          {{ movieDetails?.Title }} <small>{{ movieDetails?.Year }}</small>
+        </h2>
+        <h3 class="plot">{{ movieDetails?.Plot }}</h3>
+        <p><strong>Starring:</strong> {{ movieDetails?.Actors }}</p>
+        <p><strong>Directed by:</strong> {{ movieDetails?.Director }}</p>
+        <p><strong>Released:</strong> {{ movieDetails?.Released }}</p>
+        <p *ngIf="movieDetails?.Awards !== 'N/A'">
+          <strong>Awards:</strong> {{ movieDetails?.Awards }}
+        </p>
+        <p>
+          <strong>IMDB Rating:</strong> {{ movieDetails?.imdbRating }} from
+          {{ movieDetails?.imdbVotes }} votes
+        </p>
+      </div>
+    </div>
   </div>
-</div>
+</main>

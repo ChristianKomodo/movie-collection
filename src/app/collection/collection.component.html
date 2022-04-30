@@ -1,27 +1,35 @@
-<div class="shaded-bar-container">
-  <h2 class="primary">My Movie Watch List <small>(Optional)</small></h2>
+<main class="shaded-bar">
+  <div class="container">
+    <h2 class="primary">My Movie Watch List <small>(Optional)</small></h2>
 
-  <!-- User not authenticated -->
-  <p *ngIf="!userIsAuthenticated">
-    Please <a routerLink="/login">Log In</a> or
-    <a routerLink="/signup">Sign Up</a> to start adding movies to your
-    collection.
-  </p>
-
-  <!-- User authenticated but they have no movies in their collection -->
-  <div class="card" *ngIf="movieCollection.length === 0 && userIsAuthenticated">
-    <p class="no-results">
-      No movies in your watch list. Click "Add to Watch List" to have your
-      personal choices appear here.
+    <!-- User not authenticated -->
+    <p *ngIf="!userIsAuthenticated">
+      Please <a routerLink="/login">Log In</a> or
+      <a routerLink="/signup">Sign Up</a> to start adding movies to your
+      collection.
     </p>
-  </div>
 
-  <!-- Authenticated and has movies in a collection -->
-  <div class="card" *ngIf="movieCollection.length > 0 && userIsAuthenticated">
-    <ul class="collection-list">
-      <li *ngFor="let movie of movieCollection">
-        <img [src]="movie.poster" alt="{{ movie.title }} movie poster image" />
-      </li>
-    </ul>
+    <!-- User authenticated but they have no movies in their collection -->
+    <div
+      class="card"
+      *ngIf="movieCollection.length === 0 && userIsAuthenticated"
+    >
+      <p class="no-results">
+        No movies in your watch list. Click "Add to Watch List" to have your
+        personal choices appear here.
+      </p>
+    </div>
+
+    <!-- Authenticated and has movies in a collection -->
+    <div class="card" *ngIf="movieCollection.length > 0 && userIsAuthenticated">
+      <ul class="collection-list">
+        <li *ngFor="let movie of movieCollection">
+          <img
+            [src]="movie.poster"
+            alt="{{ movie.title }} movie poster image"
+          />
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
+</main>
