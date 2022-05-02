@@ -1,6 +1,6 @@
 const Movie = require("../model/movie");
 
-exports.loadMovies = (req, res, next) => {
+exports.loadMovies = (req, res) => {
   Movie.find().then((documents) => {
     res.status(200).json({
       message: "Movies fetched successfully.",
@@ -9,7 +9,7 @@ exports.loadMovies = (req, res, next) => {
   });
 };
 
-exports.saveMovie = (req, res, next) => {
+exports.saveMovie = (req, res) => {
   const movie = new Movie({
     poster: req.body.poster,
     title: req.body.title,
