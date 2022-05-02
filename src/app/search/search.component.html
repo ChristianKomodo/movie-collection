@@ -1,18 +1,18 @@
 <main>
   <div class="container">
     <h1 class="title primary">Search for a Movie</h1>
-    <p>
-      Enter a title to search, then choose <strong>View Details</strong> to see
-      movie information, or choose <strong>Add to Watch List</strong> in order
-      to add it to your personal list.
-    </p>
     <button *ngIf="hasDetails" (click)="returnToSearchResults()">
       Return to Search Results
     </button>
 
     <!-- search field and results (no details) -->
     <div class="card" [hidden]="hasDetails">
-      <p>Begin typing a movie title and then select from the list</p>
+      <p>
+        Begin typing a movie title and then select from the list. Choose
+        <strong>View Details</strong> to see movie information, or choose
+        <strong>Add to Watch List</strong> in order to add it to your personal
+        list.
+      </p>
       <input
         #movieSearchInput
         type="text"
