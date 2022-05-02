@@ -45,7 +45,9 @@
                 <button (click)="searchMovieDetails(movie)">
                   View Details
                 </button>
-                <button (click)="addMovie(movie)">Add to Watch List</button>
+                <button *ngIf="userIsAuthenticated" (click)="addMovie(movie)">
+                  Add to Watch List
+                </button>
               </div>
             </div>
           </li>

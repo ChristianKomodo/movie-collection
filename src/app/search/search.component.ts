@@ -1,23 +1,31 @@
-import { Component, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  OnInit,
+} from '@angular/core';
 import {
   fromEvent,
   map,
   filter,
   debounceTime,
   distinctUntilChanged,
+  Subscription,
 } from 'rxjs';
 
 import { Movie } from '../models/movie.model';
 import { MovieResult } from '../models/movie-result.model';
 import { MovieDetails } from '../models/movie-details.model';
 import { MovieService } from '../movie.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
 })
-export class SearchComponent implements AfterViewInit {
+export class SearchComponent implements OnInit, AfterViewInit {
   movieResults: MovieResult[] = [];
   movieDetails: any;
   // movieDetails: MovieDetails | undefined; // why is this not valid?
@@ -27,8 +35,23 @@ export class SearchComponent implements AfterViewInit {
   hasDetails = false;
   isSearching = false;
   noResults = false;
+  // Authentication
+  private authListenerSubs = new Subscription();
+  userIsAuthenticated: boolean = false;
 
-  constructor(private movieService: MovieService) {}
+  constructor(
+    private movieService: MovieService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit(): void {
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authListenerSubs = this.authService
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
+        this.userIsAuthenticated = isAuthenticated;
+      });
+  }
 
   ngAfterViewInit(): void {
     // build the search term

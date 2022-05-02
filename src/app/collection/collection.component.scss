@@ -14,11 +14,25 @@ ul.collection-list {
   margin: 0;
 
   li {
+    position: relative;
     list-style: none;
     margin: 0.5rem;
 
+    .remove {
+      display: none;
+      position: absolute;
+      bottom: 1rem;
+      right: 1rem;
+    }
+
+    &:hover {
+      .remove {
+        display: block;
+      }
+    }
+
     img {
-      max-width: 130px;
+      max-height: 205px;
       // cursor: pointer;  <- add when we integrate drag and drop
     }
   }

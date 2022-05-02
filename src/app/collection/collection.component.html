@@ -23,7 +23,8 @@
     <!-- Authenticated and has movies in a collection -->
     <div class="card" *ngIf="movieCollection.length > 0 && userIsAuthenticated">
       <ul class="collection-list">
-        <li *ngFor="let movie of movieCollection">
+        <li *ngFor="let movie of movieCollection" class="movie">
+          <button class="remove">Remove</button>
           <img
             [src]="movie.poster"
             alt="{{ movie.title }} movie poster image"

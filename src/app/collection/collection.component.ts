@@ -27,10 +27,6 @@ export class CollectionComponent implements OnInit, OnDestroy {
       .getAuthStatusListener()
       .subscribe((isAuthenticated) => {
         this.userIsAuthenticated = isAuthenticated;
-        console.log(
-          'collection component: userIsAuthenticated is now',
-          this.userIsAuthenticated
-        );
       });
     /* 
       Question: how can this below work if the above subscription hasn't 
