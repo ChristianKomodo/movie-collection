@@ -25,3 +25,17 @@ exports.saveMovie = (req, res) => {
     addedMovie: movie,
   });
 };
+
+exports.deleteMovie = (req, res) => {
+  const id = req.body.id;
+  console.log("id: " + id);
+  res.status(200).json({
+    message: "Movie deleted successfully",
+  });
+  // Movie.findByIdAndDelete(id).then((movie) => {
+  //   res.status(200).json({
+  //     message: "Movie deleted successfully",
+  //     deletedMovie: movie,
+  //   });
+  // });
+};

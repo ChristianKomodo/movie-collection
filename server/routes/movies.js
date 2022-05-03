@@ -10,5 +10,7 @@ const router = express.Router();
 router.get("", checkAuth, MovieController.loadMovies);
 // Save movie
 router.post("", checkAuth, MovieController.saveMovie);
+// Delete movie
+router.delete("", checkAuth, MovieController.deleteMovie);
 
 module.exports = router;

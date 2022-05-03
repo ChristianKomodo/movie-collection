@@ -1,6 +1,8 @@
 <main class="shaded-bar">
   <div class="container">
-    <h2 class="primary">My Movie Watch List <small>(Optional)</small></h2>
+    <h2 class="primary">
+      My Movie Watch List <small *ngIf="!userIsAuthenticated">(Optional)</small>
+    </h2>
 
     <!-- User not authenticated -->
     <p *ngIf="!userIsAuthenticated">
@@ -24,7 +26,9 @@
     <div class="card" *ngIf="movieCollection.length > 0 && userIsAuthenticated">
       <ul class="collection-list">
         <li *ngFor="let movie of movieCollection" class="movie">
-          <button class="remove">Remove</button>
+          <button class="remove" (click)="deleteMovie(movie._id)">
+            Remove
+          </button>
           <img
             [src]="movie.poster"
             alt="{{ movie.title }} movie poster image"

@@ -55,6 +55,11 @@ export class CollectionComponent implements OnInit, OnDestroy {
       });
   }
 
+  deleteMovie(movieId: any) {
+    console.log('deleteMovie()', movieId);
+    this.movieService.deleteMovie(movieId);
+  }
+
   ngOnDestroy(): void {
     this.movieSub.unsubscribe();
   }
