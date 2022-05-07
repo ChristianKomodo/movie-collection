@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken");
 const User = require("../model/user");
 
 exports.userSignup = (req, res, next) => {
-  console.log("trying to sign up", req.body.email);
   bcrypt.hash(req.body.password, 10).then((hash) => {
     const user = new User({
       email: req.body.email,
@@ -66,10 +65,8 @@ exports.userLogin = (req, res, next) => {
 };
 
 exports.deleteMovie = (req, res) => {
-  console.log("controllers/movie.js deleting movie)");
   Movie.deleteOne({ _id: req.params.id })
     .then((result) => {
-      console.log(result);
       if (result.n > 0) {
         res.status(200).json({ message: "Deletion successful!" });
       } else {

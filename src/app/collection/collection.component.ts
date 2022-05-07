@@ -42,21 +42,15 @@ export class CollectionComponent implements OnInit, OnDestroy {
   }
 
   getCollectedMovies() {
-    console.log('getCollectedMovies()');
     this.movieService.getMovieList();
     this.movieSub = this.movieService
       .getMovieUpdateListener()
       .subscribe((movies: Movie[]) => {
-        console.log(
-          'movies from subscription in collection component:',
-          movies
-        );
         this.movieCollection = movies;
       });
   }
 
   deleteMovie(movieId: any) {
-    console.log('CollectionComponent: deleteMovie()', movieId);
     this.movieService.deleteMovie(movieId);
   }
 
