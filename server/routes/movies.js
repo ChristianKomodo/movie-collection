@@ -11,6 +11,6 @@ router.get("", checkAuth, MovieController.loadMovies);
 // Save movie
 router.post("", checkAuth, MovieController.saveMovie);
 // Delete movie
-router.delete("", checkAuth, MovieController.deleteMovie);
+router.delete("/:id", checkAuth, MovieController.deleteMovie);
 
 module.exports = router;

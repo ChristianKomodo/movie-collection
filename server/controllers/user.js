@@ -64,3 +64,26 @@ exports.userLogin = (req, res, next) => {
       });
     });
 };
+
+exports.deleteMovie = (req, res) => {
+  console.log("controllers/movie.js deleting movie)");
+  Movie.deleteOne({ _id: req.params.id })
+    .then((result) => {
+      console.log(result);
+      if (result.n > 0) {
+        res.status(200).json({ message: "Deletion successful!" });
+      } else {
+        res.status(401).json({ message: "Not authorized!" });
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({
+        message: "Deleting posts failed!",
+        theError: error,
+      });
+    });
+  // const id = req.body.id;
+  // Movie.deleteOne({ _id: id }).then((result) => {
+  //   result.status(200).json({ message: "Movie deleted successfully" });
+  // });
+};

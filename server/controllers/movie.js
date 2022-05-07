@@ -27,15 +27,16 @@ exports.saveMovie = (req, res) => {
 };
 
 exports.deleteMovie = (req, res) => {
-  const id = req.body.id;
-  console.log("id: " + id);
-  res.status(200).json({
-    message: "Movie deleted successfully",
-  });
-  // Movie.findByIdAndDelete(id).then((movie) => {
-  //   res.status(200).json({
-  //     message: "Movie deleted successfully",
-  //     deletedMovie: movie,
-  //   });
-  // });
+  console.log("controllers/movie.js deleting movie)");
+  Movie.deleteOne({ _id: req.params.id })
+    .then((result) => {
+      console.log("result: ", result);
+      res.status(200).json({ message: "Movie deleted successfully!" });
+    })
+    .catch((error) => {
+      res.status(500).json({
+        message: "Deleting posts failed!",
+        theError: error,
+      });
+    });
 };

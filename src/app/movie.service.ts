@@ -53,13 +53,13 @@ export class MovieService {
   }
 
   deleteMovie(movieId: string) {
-    console.log(`movie service -> deleteMovie() with movieId: ${movieId}`);
+    console.log('MovieService: deleteMovie()', movieId);
     this.http
       .delete(`${this.nodeBaseUrl}/api/movies/${movieId}`)
-      .subscribe((responseData) => {
-        console.log('responseData from deleteMovie()', responseData);
-        // this.movies = this.movies.filter((movie) => movie._id !== movieId);
-        // this.moviesUpdated.next([...this.movies]);
+      .subscribe((result) => {
+        console.log('result is', result);
+        this.movies = this.movies.filter((movie) => movie._id !== movieId);
+        this.moviesUpdated.next([...this.movies]);
       });
   }
 
