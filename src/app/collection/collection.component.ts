@@ -18,7 +18,7 @@ import { MovieService } from '../movie.service';
   styleUrls: ['./collection.component.scss'],
   animations: [
     trigger('fade', [
-      state('in', style({ opacity: 1 })),
+      state('in-out', style({ opacity: 1 })),
       transition(':enter', [style({ opacity: 0 }), animate(600)]),
       transition(':leave', animate(600, style({ opacity: 0 }))),
     ]),

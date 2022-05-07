@@ -25,7 +25,11 @@
     <!-- Authenticated and has movies in a collection -->
     <div class="card" *ngIf="movieCollection.length > 0 && userIsAuthenticated">
       <ul class="collection-list">
-        <li *ngFor="let movie of movieCollection" class="movie" [@fade]="'in'">
+        <li
+          *ngFor="let movie of movieCollection"
+          class="movie"
+          [@fade]="'in-out'"
+        >
           <button class="remove" (click)="deleteMovie(movie._id)">
             Remove
           </button>
