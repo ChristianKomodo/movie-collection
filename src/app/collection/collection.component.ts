@@ -1,3 +1,10 @@
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger,
+} from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
@@ -9,6 +16,13 @@ import { MovieService } from '../movie.service';
   selector: 'app-collection',
   templateUrl: './collection.component.html',
   styleUrls: ['./collection.component.scss'],
+  animations: [
+    trigger('fade', [
+      state('in', style({ opacity: 1 })),
+      transition(':enter', [style({ opacity: 0 }), animate(600)]),
+      transition(':leave', animate(600, style({ opacity: 0 }))),
+    ]),
+  ],
 })
 export class CollectionComponent implements OnInit, OnDestroy {
   movieCollection: Movie[] = [];
