@@ -33,7 +33,6 @@ export class MovieService {
         'http://localhost:3000/api/movies'
       )
       .subscribe((movieData) => {
-        console.log('raw movieData is', movieData);
         this.movies = movieData.movies;
         this.moviesUpdated.next([...this.movies]);
       });
@@ -53,11 +52,9 @@ export class MovieService {
   }
 
   deleteMovie(movieId: string) {
-    console.log('MovieService: deleteMovie()', movieId);
     this.http
       .delete(`${this.nodeBaseUrl}/api/movies/${movieId}`)
       .subscribe((result) => {
-        console.log('result is', result);
         this.movies = this.movies.filter((movie) => movie._id !== movieId);
         this.moviesUpdated.next([...this.movies]);
       });

@@ -27,10 +27,8 @@ exports.saveMovie = (req, res) => {
 };
 
 exports.deleteMovie = (req, res) => {
-  console.log("controllers/movie.js deleting movie)");
   Movie.deleteOne({ _id: req.params.id })
-    .then((result) => {
-      console.log("result: ", result);
+    .then(() => {
       res.status(200).json({ message: "Movie deleted successfully!" });
     })
     .catch((error) => {

@@ -20,7 +20,6 @@ export class AuthService {
   }
 
   getIsAuth() {
-    console.log('getIsAuth() says', this.isAuthenticated);
     return this.isAuthenticated;
   }
 
@@ -45,7 +44,6 @@ export class AuthService {
         authData
       )
       .subscribe((response) => {
-        console.log('Got a token.');
         const token = response.token;
         this.token = token;
         if (token) {
@@ -56,10 +54,6 @@ export class AuthService {
           const now = new Date();
           const expirationDate = new Date(
             now.getTime() + expiresInDuration * 1000
-          );
-          console.log(
-            'new expiresInDuration * 1000 is',
-            expiresInDuration * 1000
           );
           this.saveAuthData(token, expirationDate);
           this.router.navigate(['/']);
@@ -92,7 +86,6 @@ export class AuthService {
   }
 
   private setAuthTimer(duration: number) {
-    console.log('Setting timer: ', duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
