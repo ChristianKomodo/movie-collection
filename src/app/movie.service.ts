@@ -42,11 +42,18 @@ export class MovieService {
     return this.moviesUpdated.asObservable();
   }
 
+  isMovieAlreadyCollected(collectedMovie: MovieResult): boolean {
+    return this.movies.some((movie) => movie.imdbid === collectedMovie.imdbid);
+  }
+
   addMovie(movie: MovieResult) {
+    if (this.isMovieAlreadyCollected(movie)) {
+      return console.error(`Already collected the movie "${movie.title}".`);
+    }
     this.http
       .post<any>(`${this.nodeBaseUrl}/api/movies`, movie)
       .subscribe((responseData) => {
-        this.movies.unshift(responseData.addedMovie);
+        this.movies.push(responseData.addedMovie);
         this.moviesUpdated.next([...this.movies]);
       });
   }
@@ -54,8 +61,7 @@ export class MovieService {
   deleteMovie(movieId: string) {
     this.http
       .delete(`${this.nodeBaseUrl}/api/movies/${movieId}`)
-      .subscribe((result) => {
-        console.log('result of delete is:', result);
+      .subscribe(() => {
         this.movies = this.movies.filter((movie) => movie._id !== movieId);
         this.moviesUpdated.next([...this.movies]);
       });
