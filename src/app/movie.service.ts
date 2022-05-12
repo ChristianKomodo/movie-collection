@@ -30,7 +30,7 @@ export class MovieService {
   getMovieList() {
     this.http
       .get<{ message: string; movies: Movie[] }>(
-        'http://localhost:3000/api/movies'
+        `${this.nodeBaseUrl}/api/movies`
       )
       .subscribe((movieData) => {
         this.movies = movieData.movies;
