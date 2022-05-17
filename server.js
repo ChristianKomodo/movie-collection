@@ -2,7 +2,10 @@ const app = require("./server/app");
 const debug = require("debug")("node-angular");
 const http = require("http");
 
-const normalizePort = val => {
+// .env values through config.js
+const { name } = require("./config");
+
+const normalizePort = (val) => {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -18,7 +21,7 @@ const normalizePort = val => {
   return false;
 };
 
-const onError = error => {
+const onError = (error) => {
   if (error.syscall !== "listen") {
     throw error;
   }
@@ -45,6 +48,9 @@ const onListening = () => {
 
 const port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
+
+// .env test
+console.log(`Your name is ${name}`);
 
 const server = http.createServer(app);
 server.on("error", onError);
