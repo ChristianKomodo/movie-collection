@@ -1,5 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
+// .env values through config.js
+const { mongoURI } = require("../config");
 
 const movieRoutes = require("./routes/movies");
 const userRoutes = require("./routes/user");
@@ -7,9 +9,7 @@ const userRoutes = require("./routes/user");
 const app = express();
 
 mongoose
-  .connect(
-    "mongodb+srv://demo:9Cq3cdduBzmx8Q0G@cluster0.dvkan.mongodb.net/movies?retryWrites=true&w=majority"
-  )
+  .connect(mongoURI)
   .then(() => {
     console.log("connected to database!");
   })
@@ -32,7 +32,6 @@ app.use((req, res, next) => {
   );
   next();
 });
-
 app.use("/api/user", userRoutes);
 app.use("/api/movies", movieRoutes);
 

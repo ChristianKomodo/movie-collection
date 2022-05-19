@@ -2,20 +2,17 @@ const app = require("./server/app");
 const debug = require("debug")("node-angular");
 const http = require("http");
 
-// .env values through config.js
-const { name } = require("./config");
-
 const normalizePort = (val) => {
-  var port = parseInt(val, 10);
+  const rawPort = parseInt(val, 10);
 
-  if (isNaN(port)) {
+  if (isNaN(rawPort)) {
     // named pipe
     return val;
   }
 
-  if (port >= 0) {
+  if (rawPort >= 0) {
     // port number
-    return port;
+    return rawPort;
   }
 
   return false;
@@ -46,11 +43,8 @@ const onListening = () => {
   debug("Listening on " + bind);
 };
 
-const port = normalizePort(process.env.PORT || "3000");
+const port = normalizePort("3000");
 app.set("port", port);
-
-// .env test
-console.log(`Your name is ${name}`);
 
 const server = http.createServer(app);
 server.on("error", onError);
