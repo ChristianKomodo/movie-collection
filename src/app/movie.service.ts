@@ -4,8 +4,9 @@ import { of, Subject } from 'rxjs';
 
 import { Movie } from './models/movie.model';
 import { MovieResult } from './models/movie-result.model';
+import { environment } from '../environments/environment';
 
-const APIKEY = '8e27fb4f';
+const APIKEY = environment.apiKey;
 
 const PARAMS = new HttpParams({
   fromObject: {
