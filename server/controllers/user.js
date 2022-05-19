@@ -79,8 +79,4 @@ exports.deleteMovie = (req, res) => {
         theError: error,
       });
     });
-  // const id = req.body.id;
-  // Movie.deleteOne({ _id: id }).then((result) => {
-  //   result.status(200).json({ message: "Movie deleted successfully" });
-  // });
 };
